@@ -1,0 +1,14 @@
+Manifest*.toml
+scheduled_tasks.lock
+
+# notes for/from coding assistants: never tracked
+CLAUDE.md
+**/CLAUDE.md
+HANDOVER*.md
+**/HANDOVER*.md
+/.claude/
+
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+/docs/build/
