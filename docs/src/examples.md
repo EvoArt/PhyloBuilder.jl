@@ -55,6 +55,10 @@ Amplicon sequence variants from
 (via `MAFFT_jll`), then a BIONJ tree drawn with PlotPhyloTree. `seqtab_nochim`
 is the chimera-free sequence table from the DenoiseDNA tutorial.
 
+!!! note
+    `MAFFT_jll` has no Windows build, so this example runs on Linux and macOS
+    only. A pure-Julia aligner, MSABuilder.jl, is in development.
+
 ```julia
 using DenoiseDNA, PhyloBuilder, PlotPhyloTree, MAFFT_jll
 
