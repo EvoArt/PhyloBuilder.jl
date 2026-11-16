@@ -33,6 +33,7 @@ _index(x::UInt8) = trailing_zeros(x) + 1          # A,C,G,T -> 1..4 for a single
     Alignment(names, sequences)
     Alignment(sequences)                     # names "seq1", "seq2", …
     Alignment(["name" => seq, …])
+    Alignment(x)                             # any collection of name => seq pairs
 
 Aligned nucleotide sequences (all the same length). Sequences can be
 strings or anything whose `string` is the sequence (e.g. BioSequences'
@@ -79,6 +80,13 @@ end
 Alignment(seqs::AbstractVector) = Alignment(["seq$i" for i in eachindex(seqs)], seqs)
 Alignment(pairs::AbstractVector{<:Pair}) = Alignment(first.(pairs), last.(pairs))
 Alignment(d::AbstractDict) = Alignment(collect(keys(d)), collect(values(d)))
+Alignment(a::Alignment) = a
+# any other collection of `name => sequence` pairs, such as an MSABuilder MSA
+function Alignment(x)
+    ps = collect(x)
+    all(p -> p isa Pair, ps) || throw(ArgumentError("expected an alignment or a collection of name => sequence pairs, got $(typeof(x))"))
+    return Alignment(first.(ps), last.(ps))
+end
 
 """    ntaxa(aln)  number of sequences."""
 ntaxa(a::Alignment) = size(a.data, 1)

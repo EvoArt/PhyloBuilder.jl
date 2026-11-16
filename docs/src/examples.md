@@ -51,28 +51,18 @@ savefig("tree.svg", p)
 ## From ASVs to a tree
 
 Amplicon sequence variants from
-[DenoiseDNA](https://github.com/EvoArt/DenoiseDNA.jl), aligned with MAFFT
-(via `MAFFT_jll`), then a BIONJ tree drawn with PlotPhyloTree. `seqtab_nochim`
-is the chimera-free sequence table from the DenoiseDNA tutorial.
-
-!!! note
-    `MAFFT_jll` has no Windows build, so this example runs on Linux and macOS
-    only. A pure-Julia aligner, MSABuilder.jl, is in development.
+[DenoiseDNA](https://github.com/EvoArt/DenoiseDNA.jl), aligned with
+[MSABuilder](https://github.com/EvoArt/MSABuilder.jl), then a tree drawn with
+PlotPhyloTree. `seqtab_nochim` is the chimera-free sequence table from the
+DenoiseDNA tutorial.
 
 ```julia
-using DenoiseDNA, PhyloBuilder, PlotPhyloTree, MAFFT_jll
+using DenoiseDNA, MSABuilder, PhyloBuilder, PlotPhyloTree
 
-asvs = seqtab_nochim.sequences
-open("asvs.fasta", "w") do io
-    for (i, s) in enumerate(asvs)
-        println(io, ">ASV", i, '\n', s)
-    end
-end
-run(pipeline(`$(mafft()) --auto --quiet asvs.fasta`; stdout="asvs_aligned.fasta"))
-
-aln  = readalignment("asvs_aligned.fasta")
-tree = bionj(aln; model=:TN93, gamma=0.5, root=:midpoint, ladderize=true)
-
-p = treeplot(tree; layout=:circular)
+tree = seqtab_nochim |> align |> nj        # ASVs named ASV1, ASV2, …
+p = treeplot(midpoint(tree); layout=:circular)
 savefig("asv-tree.svg", p)
 ```
+
+Any collection of `name => sequence` pairs can be passed where an alignment
+is expected, so `nj(align(seqs))` works for plain sequences too.

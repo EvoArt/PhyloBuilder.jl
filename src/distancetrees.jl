@@ -105,7 +105,8 @@ end
     nj(aln; model=:JC69, gamma=nothing, kwargs...) -> PhyloTree
 
 Neighbour-joining tree (Saitou & Nei 1987, in Studier & Keppler's form)
-from a [`DistanceMatrix`](@ref) or an alignment. The tree is unrooted
+from a [`DistanceMatrix`](@ref) or an alignment (an [`Alignment`](@ref), or any
+collection of `name => sequence` pairs such as an MSABuilder `MSA`). The tree is unrooted
 (drawn from a node with three children) unless `root` is `:midpoint` or an
 outgroup. With `nonnegative = true` negative branch lengths are set to 0.
 """
@@ -213,4 +214,9 @@ for f in (:upgma, :wpgma, :nj, :bionj)
                       progress::Bool=_progress_default(), kwargs...)
         return $f(distances(a; model, gamma, progress); kwargs...)
     end
+end
+# anything `Alignment` accepts: a collection of name => sequence pairs (e.g.
+# an MSABuilder MSA), so `align(seqs) |> nj` works
+for f in (:upgma, :wpgma, :nj, :bionj, :distances, :basefreqs)
+    @eval $f(x; kwargs...) = $f(Alignment(x); kwargs...)
 end

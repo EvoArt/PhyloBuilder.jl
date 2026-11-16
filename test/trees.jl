@@ -86,3 +86,16 @@
         @test pathdist(l, names) ≈ P
     end
 end
+
+@testset "collections of name => sequence pairs" begin
+    aln = readalignment(fixture("small.fa"))
+    ps = collect(aln)                                     # name => sequence pairs
+    gen = (n => s for (n, s) in ps)                       # any iterable of pairs
+    @test Alignment(gen) == aln
+    @test Alignment(aln) === aln
+    @test distances(gen) == distances(aln)
+    @test basefreqs(gen) == basefreqs(aln)
+    @test writenewick(nj(gen; progress=false)) == writenewick(nj(aln; progress=false))
+    @test writenewick(upgma(gen; progress=false)) == writenewick(upgma(aln; progress=false))
+    @test_throws ArgumentError nj((1, 2, 3))
+end
