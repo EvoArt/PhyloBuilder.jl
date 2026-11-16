@@ -1,0 +1,8 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+PhyloBuilder = "441aa440-a7f5-4914-ba7f-167a6c1feca4"
+PhyloIO = "2031dd8a-3ee5-4b40-a1c7-31da38b3f347"
+PlotPhyloTree = "13412a18-f2a1-4ce8-a2da-bce8c134a8fd"
+
+[compat]
+Documenter = "1"

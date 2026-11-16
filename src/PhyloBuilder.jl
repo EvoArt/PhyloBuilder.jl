@@ -1,10 +1,8 @@
 """
     PhyloBuilder
 
-Build phylogenies from aligned nucleotide sequences: distances, UPGMA,
-WPGMA, neighbour joining and BIONJ (more to come: parsimony, maximum
-likelihood, bootstrap support). Trees are `PhyloIO.PhyloTree`s, so they
-can be written with PhyloIO and drawn with PlotPhyloTree.
+Phylogenetic trees from aligned nucleotide sequences: pairwise distances,
+UPGMA, WPGMA, neighbour joining and BIONJ. Trees are `PhyloIO.PhyloTree`s.
 """
 module PhyloBuilder
 

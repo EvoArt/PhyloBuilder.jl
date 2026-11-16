@@ -209,13 +209,8 @@ end
 
 # the alignment forms: distances first
 for f in (:upgma, :wpgma, :nj, :bionj)
-    @eval function $f(a::Alignment; model::Symbol=:JC69, gamma=nothing, bootstrap::Integer=0,
-                      rng=Random.default_rng(), progress::Bool=_progress_default(), kwargs...)
-        t = $f(distances(a; model, gamma, progress); kwargs...)
-        bootstrap > 0 || return t
-        reps = PhyloBuilder.bootstrap(a; reps=bootstrap, rng, progress) do b
-            $f(distances(b; model, gamma, progress=false, threaded=false); kwargs...)
-        end
-        return addsupport!(t, reps)
+    @eval function $f(a::Alignment; model::Symbol=:JC69, gamma=nothing,
+                      progress::Bool=_progress_default(), kwargs...)
+        return $f(distances(a; model, gamma, progress); kwargs...)
     end
 end
