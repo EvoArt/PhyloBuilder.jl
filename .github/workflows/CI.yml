@@ -47,9 +47,9 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Pkg
-            Pkg.add([PackageSpec(url="https://github.com/EvoArt/PhyloIO.jl"),
-                     PackageSpec(url="https://github.com/EvoArt/PlotPhyloTree.jl")])
-            Pkg.develop(PackageSpec(path=pwd()))
+            Pkg.add(url="https://github.com/EvoArt/PhyloIO.jl")
+            Pkg.develop(path=pwd())
+            Pkg.add(url="https://github.com/EvoArt/PlotPhyloTree.jl")
             Pkg.instantiate()'
       - run: julia --project=docs docs/make.jl
         env:
