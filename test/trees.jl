@@ -63,7 +63,7 @@
         @test pathdist(r, names) ≈ P
         r2 = root(t, ["s4", "s5"])
         kids = childnodes(r2, rootnode(r2))
-        @test any(k -> sort([nodelabel(r2, i) for i in tips(r2) if k in PhyloIO.ancestors(r2, i) || i == k]) == ["s4", "s5"], kids)
+        @test any(k -> sort([nodelabel(r2, i) for i in tips(r2) if k in PhylogenyIO.ancestors(r2, i) || i == k]) == ["s4", "s5"], kids)
         @test pathdist(r2, names) ≈ P
         @test_throws ArgumentError root(t, :nonsense)
 
@@ -77,7 +77,7 @@
         s = parsenewick("((a:1,b:1)90:1,(c:1,d:1)70:2,e:1);")
         rs = root(s, "c")
         all_ = Set(["a", "b", "c", "d", "e"])
-        below(t, i) = Set(nodelabel(t, j) for j in tips(t) if j == i || i in PhyloIO.ancestors(t, j))
+        below(t, i) = Set(nodelabel(t, j) for j in tips(t) if j == i || i in PhylogenyIO.ancestors(t, j))
         side(t, i) = (b = below(t, i); "a" in b ? setdiff(all_, b) : b)
         sup = Dict(side(rs, i) => rs.data[i][:support] for i in 1:nnodes(rs) if haskey(rs.data[i], :support))
         @test sup == Dict(Set(["c", "d", "e"]) => 90.0, Set(["c", "d"]) => 70.0)

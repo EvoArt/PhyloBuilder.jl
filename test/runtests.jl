@@ -1,5 +1,5 @@
 using PhyloBuilder
-using PhyloIO
+using PhyloBuilder.PhylogenyIO
 using Random
 using Test
 

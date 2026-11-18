@@ -6,9 +6,11 @@ usual substitution models (p, JC69, K80, F81, TN93, with optional gamma;
 LogDet, paralinear) and builds UPGMA, WPGMA, neighbour-joining and BIONJ
 trees. Distances and trees match R's `ape` and `phangorn`.
 
-Trees are [`PhyloIO.PhyloTree`](https://github.com/EvoArt/PhyloIO.jl)s, so
-they can be written as Newick or Nexus with PhyloIO and drawn with
-[PlotPhyloTree](https://github.com/EvoArt/PlotPhyloTree.jl).
+Trees use a temporary bundled copy of [PhylogenyIO](https://github.com/EvoArt/PhylogenyIO.jl).
+Use `PhyloBuilder.PhylogenyIO` for Newick and Nexus I/O. Its `PhyloTree` type
+differs from the copy bundled by [PlotPhyloTree](https://github.com/EvoArt/PlotPhyloTree.jl),
+so transfer trees through a Newick string or file until both packages share the
+registered library.
 
 ## Installation
 
@@ -20,7 +22,7 @@ Pkg.add("PhyloBuilder")
 ## Quick start
 
 ```julia
-using PhyloBuilder, PhyloIO
+using PhyloBuilder, PhyloBuilder.PhylogenyIO
 
 aln  = readalignment("aligned.fasta")
 d    = distances(aln; model=:K80)

@@ -5,7 +5,7 @@
 A small alignment of eight sequences shipped with the tests:
 
 ```@example main
-using PhyloBuilder, PhyloIO
+using PhyloBuilder, PhyloBuilder.PhylogenyIO
 
 aln = readalignment(pkgdir(PhyloBuilder, "test", "fixtures", "small.fa"))
 ntaxa(aln), nsites(aln)
@@ -39,7 +39,7 @@ With [PlotPhyloTree](https://github.com/EvoArt/PlotPhyloTree.jl):
 ```@example main
 using PlotPhyloTree
 
-p = treeplot(t_nj)
+p = treeplot(writenewick(t_nj))
 scalebar!(p)
 p
 ```

@@ -28,8 +28,6 @@ jobs:
         with:
           version: ${{ matrix.version }}
       - uses: julia-actions/cache@v2
-      # PhyloIO is not yet in the General registry
-      - run: julia --project -e 'using Pkg; Pkg.add(url="https://github.com/EvoArt/PhyloIO.jl")'
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
   docs:
@@ -47,7 +45,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Pkg
-            Pkg.add(url="https://github.com/EvoArt/PhyloIO.jl")
             Pkg.develop(path=pwd())
             Pkg.add(url="https://github.com/EvoArt/PlotPhyloTree.jl")
             Pkg.instantiate()'

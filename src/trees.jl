@@ -1,4 +1,4 @@
-# Building PhyloIO trees, and rooting them.
+# Building PhylogenyIO trees, and rooting them.
 
 # A PhyloTree from child lists: node `root` at the top, `len[i]` the branch
 # above node `i`, `label[i]` its label (tips are usually 1:n).
