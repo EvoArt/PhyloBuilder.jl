@@ -39,7 +39,7 @@ With [PlotPhyloTree](https://github.com/EvoArt/PlotPhyloTree.jl):
 ```@example main
 using PlotPhyloTree
 
-p = treeplot(writenewick(t_nj))
+p = treeplot(PhyloBuilder.PhylogenyIO.writenewick(t_nj))
 scalebar!(p)
 p
 ```
@@ -60,7 +60,7 @@ DenoiseDNA tutorial.
 using DenoiseDNA, MSABuilder, PhyloBuilder, PlotPhyloTree
 
 tree = seqtab_nochim |> align |> nj        # ASVs named ASV1, ASV2, …
-p = treeplot(midpoint(tree); layout=:circular)
+p = treeplot(PhyloBuilder.PhylogenyIO.writenewick(midpoint(tree)); layout=:circular)
 savefig("asv-tree.svg", p)
 ```
 
