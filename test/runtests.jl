@@ -1,4 +1,5 @@
 using PhyloBuilder
+using PhyloBuilder: sequences
 using PhyloBuilder.PhylogenyIO
 using Random
 using Test

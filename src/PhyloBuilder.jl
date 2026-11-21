@@ -15,7 +15,9 @@ using .PhylogenyIO: PhyloTree, addnode!, nnodes, ntips, isleaf, isroot, parentno
 
 export PhylogenyIO
 
-export Alignment, ntaxa, nsites, taxa, sequences, basefreqs,
+# `sequences` is not exported (CommunityEcology exports a different one); use
+# `PhyloBuilder.sequences(aln)` or `using PhyloBuilder: sequences`.
+export Alignment, ntaxa, nsites, taxa, basefreqs,
        readalignment, readfasta, readphylip, writefasta, writephylip,
        DistanceMatrix, distances, patristic,
        upgma, wpgma, nj, bionj,
