@@ -1,7 +1,7 @@
 name = "PhyloBuilder"
 uuid = "441aa440-a7f5-4914-ba7f-167a6c1feca4"
 authors = ["Arthur Newbury"]
-version = "0.1.0"
+version = "0.2.0"
 
 [deps]
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
