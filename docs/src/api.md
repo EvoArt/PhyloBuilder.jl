@@ -16,7 +16,7 @@ writephylip
 ntaxa
 nsites
 taxa
-sequences
+PhyloBuilder.sequences
 basefreqs
 ```
 
