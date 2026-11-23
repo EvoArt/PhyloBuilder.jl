@@ -2,6 +2,7 @@
 
 [![Docs](https://img.shields.io/badge/docs-dev-blue.svg)](https://EvoArt.github.io/PhyloBuilder.jl/dev)
 [![CI](https://github.com/EvoArt/PhyloBuilder.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/EvoArt/PhyloBuilder.jl/actions/workflows/CI.yml)
+[![Coverage](https://codecov.io/gh/EvoArt/PhyloBuilder.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/EvoArt/PhyloBuilder.jl)
 
 Phylogenetic trees from aligned nucleotide sequences: pairwise distances
 (p, JC69, K80, F81, TN93 with optional gamma; LogDet, paralinear) and
