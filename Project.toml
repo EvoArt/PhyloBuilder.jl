@@ -1,15 +1,17 @@
 name = "PhyloBuilder"
 uuid = "441aa440-a7f5-4914-ba7f-167a6c1feca4"
 authors = ["Arthur Newbury"]
-version = "0.2.0"
+version = "0.2.1"
 
 [deps]
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+PhylogenyIO = "2031dd8a-3ee5-4b40-a1c7-31da38b3f347"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
 LinearAlgebra = "1"
+PhylogenyIO = "0.1.1"
 Printf = "1"
 Random = "1"
 julia = "1.10"

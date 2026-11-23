@@ -6,10 +6,9 @@
 Phylogenetic trees from aligned nucleotide sequences: pairwise distances
 (p, JC69, K80, F81, TN93 with optional gamma; LogDet, paralinear) and
 UPGMA, WPGMA, neighbour-joining and BIONJ trees. Results match R's `ape` and
-`phangorn`. This release bundles the `PhylogenyIO` tree implementation.
-`PhyloBuilder.PhylogenyIO.PhyloTree` is distinct from the tree type bundled by
-[PlotPhyloTree](https://github.com/EvoArt/PlotPhyloTree.jl). Transfer trees through
-Newick until both packages depend on the registered `PhylogenyIO` release.
+`phangorn`. Trees are [PhylogenyIO](https://github.com/EvoArt/PhylogenyIO.jl)
+`PhyloTree`s, so [PlotPhyloTree](https://github.com/EvoArt/PlotPhyloTree.jl) draws
+them directly.
 
 ```julia
 using Pkg

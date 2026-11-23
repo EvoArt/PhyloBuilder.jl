@@ -17,8 +17,7 @@ makedocs(;
         "Examples" => "examples.md",
         "API" => "api.md",
     ],
-    # The temporary bundled PhylogenyIO module has its own separate manual.
-    checkdocs=:none,
+    checkdocs=:exports,
 )
 
 deploydocs(;
