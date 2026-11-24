@@ -27,6 +27,9 @@
     @testset "threads give the same result" begin
         @test distances(aln; model=:TN93, threaded=true, progress=false) ==
               distances(aln; model=:TN93, threaded=false, progress=false)
+        rng = MersenneTwister(6)                     # more than 20 taxa: the threaded loop
+        many = Alignment(["t$i" for i in 1:30], [join(rand(rng, "ACGT", 60)) for _ in 1:30])
+        @test distances(many; threaded=true, progress=false) == distances(many; threaded=false, progress=false)
     end
 
     @testset "edge cases" begin

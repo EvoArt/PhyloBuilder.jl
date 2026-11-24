@@ -77,27 +77,6 @@ function _next!(p::_Progress, k::Integer=1; info=nothing)
     return p
 end
 
-# Set the count of `p`.
-function _update!(p::_Progress, count::Integer; info=nothing)
-    p.enabled || return p
-    lock(p.lock) do
-        p.count = count
-        info === nothing || (p.info = info)
-        _maybe_render(p)
-    end
-    return p
-end
-
-# Set the trailing text of `p` without advancing it.
-function _info!(p::_Progress, info::AbstractString)
-    p.enabled || return p
-    lock(p.lock) do
-        p.info = info
-        _maybe_render(p)
-    end
-    return p
-end
-
 # Close `p`, leaving its final line (with `info`) on the screen.
 function _finish!(p::_Progress; info=nothing, ok::Bool=true)
     p.enabled || return p

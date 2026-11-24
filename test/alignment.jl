@@ -63,6 +63,17 @@
             f = writephylip(joinpath(dir, "a.phy"), a)
             @test readalignment(f) == a
             @test readphylip(f) == a
+            f = joinpath(dir, "strict.phy")    # strict PHYLIP: 10-character names, no separator
+            write(f, "2 8
+seqnumber1ACGTACGT
+seqnumber2ACGTACGA
+")
+            @test taxa(readalignment(f)) == ["seqnumber1", "seqnumber2"]
+            f = writefasta(joinpath(dir, "nowrap.fa"), a; width=0)
+            @test count(==('
+'), read(f, String)) == 2 * 3
+            @test size(a, 1) == 3 && size(a, 2) == 12
+            @test a[:, 1:4] == Alignment(taxa(a), [s[1:4] for s in PhyloBuilder.sequences(a)])
 
             f = joinpath(dir, "inter.phy")     # interleaved PHYLIP
             write(f, "3 12\ns1  ACGTRY\nlong_name_2 ACGTAC\ns3  TTTT--\nN-ACGT\nGTACGT\n--CCCC\n")

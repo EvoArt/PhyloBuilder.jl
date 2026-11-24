@@ -20,4 +20,5 @@ end
     include("alignment.jl")
     include("distances.jl")
     include("trees.jl")
+    include("terminal.jl")
 end

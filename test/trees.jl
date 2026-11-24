@@ -1,3 +1,30 @@
+# cophenetic distances of UPGMA (average) / WPGMA (weighted) by the textbook
+# O(n³) merge: always join the closest pair (lowest index pair on ties)
+function _naive_hclust(D, average)
+    n = size(D, 1)
+    D = Float64.(D)
+    members = [[i] for i in 1:n]
+    alive = trues(n)
+    C = zeros(n, n)
+    for _ in 1:n-1
+        best, bi, bj = Inf, 0, 0
+        for i in 1:n, j in i+1:n
+            alive[i] && alive[j] && D[i, j] < best && ((best, bi, bj) = (D[i, j], i, j))
+        end
+        for a in members[bi], b in members[bj]
+            C[a, b] = C[b, a] = best
+        end
+        ni, nj = length(members[bi]), length(members[bj])
+        for k in 1:n
+            (alive[k] && k != bi && k != bj) || continue
+            D[bi, k] = D[k, bi] = average ? (ni * D[bi, k] + nj * D[bj, k]) / (ni + nj) : (D[bi, k] + D[bj, k]) / 2
+        end
+        append!(members[bi], members[bj])
+        alive[bj] = false
+    end
+    return C
+end
+
 @testset "trees" begin
     aln = readalignment(fixture("small.fa"))
     names = taxa(aln)
@@ -26,6 +53,25 @@
         @test writenewick(nj(aln; model=:K80, progress=false)) == writenewick(nj(d))
         @test writenewick(bionj(aln; model=:F81, gamma=0.7, progress=false)) ==
               writenewick(bionj(distances(aln; model=:F81, gamma=0.7, progress=false)))
+        # rooted on an outgroup by keyword
+        r = nj(d; root=d.names[1])
+        @test length(childnodes(r, rootnode(r))) == 2
+        @test d.names[1] in [nodelabel(r, c) for c in childnodes(r, rootnode(r))]
+        # larger random matrices: the nearest-neighbour bookkeeping of the
+        # agglomerative methods, against an O(n³) reference merge
+        rng = MersenneTwister(9)
+        for trial in 1:5
+            n = 30
+            X = randn(rng, n, 3)
+            D = [sqrt(sum(abs2, X[i, :] .- X[j, :])) for i in 1:n, j in 1:n]
+            dm = DistanceMatrix(["t$i" for i in 1:n], D)
+            for f in (upgma, wpgma)
+                t = f(dm)
+                h = rootdistance(t)
+                @test ntips(t) == n && all(≈(h[tips(t)[1]]), h[tips(t)])
+                @test pathdist(t, dm.names) ≈ _naive_hclust(D, f === upgma)
+            end
+        end
     end
 
     @testset "tiny inputs" begin
